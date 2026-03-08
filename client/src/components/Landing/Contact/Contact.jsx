@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, MessageSquare, User } from "lucide-react";
+import api from "../../../libs/axiosInstance";
+import { sileo } from "sileo";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -14,20 +16,57 @@ const fadeUp = {
 function Contact() {
     const [form, setForm] = useState({ name: "", email: "", message: "" });
     const [sent, setSent] = useState(false);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) =>
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSent(true);
+        setLoading(true);
+        setError(null);
+        try {
+            await api.post("/api/message", {
+                name: form.name,
+                email: form.email,
+                mesg: form.message
+            });
+
+            sileo.success({
+                title: "Success",
+                description: "Message sent successfully",
+                fill: "black!",
+                styles: {
+                    title: "text-white text-lg!",
+                    description: "text-white/75 text-md text-center!",
+                },
+            });
+
+            setSent(true);
+            setLoading(false);
+        } catch (err) {
+            const errorMessage = err.response?.data?.error || err.response?.data?.message || "Error in sending message, please try again";
+            
+            sileo.error({
+                title: "Error",
+                description: errorMessage,
+                fill: "black!",
+                styles: {
+                    title: "text-white text-lg!",
+                    description: "text-white/75 text-md text-center!",
+                },
+            });
+
+            setError(errorMessage);
+            setLoading(false);
+        }
     };
 
     return (
         <section id="contact" className="relative z-10 py-24 px-6">
             <div className="max-w-6xl mx-auto">
 
-                {/* heading */}
                 <motion.div
                     className="mb-16"
                     initial="hidden"
@@ -47,7 +86,6 @@ function Contact() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
 
-                    {/* form */}
                     <motion.div
                         className="lg:col-span-3 bg-white border border-neutral-200 rounded-3xl p-8 hover:border-neutral-400 transition-colors duration-300"
                         initial="hidden"
@@ -123,14 +161,38 @@ function Contact() {
                                 <button
                                     type="submit"
                                     className="mt-1 w-full py-3.5 rounded-full bg-black text-white text-sm font-semibold hover:bg-neutral-800 transition-colors duration-200 shadow-lg shadow-black/20"
+                                    disabled={loading}
                                 >
-                                    Send message →
+                                    {loading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg
+                      className="animate-spin h-4 w-4 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v8z"
+                      />
+                    </svg>
+                    Sending your message...
+                  </span>) : ("Send message →")}
                                 </button>
                             </form>
                         )}
                     </motion.div>
 
-                    {/* side info */}
+                    
                     <motion.div
                         className="lg:col-span-2 flex flex-col gap-5"
                         initial="hidden"
@@ -139,7 +201,7 @@ function Contact() {
                         custom={2}
                         variants={fadeUp}
                     >
-                        {/* email card */}
+                       
                         <div className="bg-black rounded-3xl p-8 flex flex-col justify-between flex-1">
                             <div className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center mb-5">
                                 <Mail size={20} className="text-white" />
@@ -161,7 +223,6 @@ function Contact() {
                             </div>
                         </div>
 
-                        {/* response time card */}
                         <div className="bg-white border border-neutral-200 rounded-3xl p-8 hover:border-neutral-400 transition-colors duration-300">
                             <div className="w-11 h-11 bg-black rounded-xl flex items-center justify-center mb-5">
                                 <MessageSquare size={20} className="text-white" />
@@ -172,9 +233,6 @@ function Contact() {
                             <p className="text-black font-bold text-3xl tracking-tighter">
                                 &lt; 24h
                             </p>
-                            {/* <p className="text-neutral-500 text-sm mt-2 leading-relaxed">
-                                Feature requests, bug reports, or just to say hi — we're all ears.
-                            </p> */}
                         </div>
                     </motion.div>
 

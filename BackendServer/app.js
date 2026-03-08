@@ -16,6 +16,7 @@ const User = require("./models/users.js");
 const userRoutes = require("./routes/user.js");
 const jobRoutes = require("./routes/dashboard.js");
 const noteRoutes = require("./routes/notes.js");
+const msgRoutes = require("./routes/message.js");
 
 let dbUrl = process.env.MONGO_URL;
 const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
@@ -82,6 +83,7 @@ app.get("/api/auth/me", (req, res) => {
 app.use("/api/auth", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/notes", noteRoutes);
+app.use("/api/message", msgRoutes);
 
 // JSON error handler
 app.use((err, req, res, next) => {

@@ -50,4 +50,19 @@ const jobSchema = Joi.object({
   }),
 });
 
-module.exports = { signupSchema, loginSchema, jobSchema };
+const mesgSchema = Joi.object({
+  name: Joi.string().required().messages({
+    "string.empty": "Please enter your name",
+    "any.required": "Name is required",
+  }),
+  email: Joi.string().email().allow("", null).optional().messages({
+    "string.email": "Please enter a valid email address",
+  }),
+  mesg: Joi.string().min(5).required().messages({
+    "string.empty": "Please enter your message",
+    "string.min": "Message must be at least 5 characters long",
+    "any.required": "Message is required",
+  }),
+});
+
+module.exports = { signupSchema, loginSchema, jobSchema, mesgSchema };
