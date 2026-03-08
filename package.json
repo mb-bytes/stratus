@@ -1,0 +1,11 @@
+{
+  "name": "stratus-root",
+  "version": "1.0.0",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "heroku-postbuild": "cd BackendServer && npm install",
+    "start": "cd BackendServer && node app.js"
+  }
+}
