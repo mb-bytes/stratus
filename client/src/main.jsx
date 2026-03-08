@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext.jsx'
 import ProjectRoutes from './Routes.jsx';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { sileo, Toaster } from "sileo";
+import { Analytics } from "@vercel/analytics/react";
 
 
 createRoot(document.getElementById('root')).render(
@@ -18,5 +19,6 @@ createRoot(document.getElementById('root')).render(
         </Router>
       </AuthProvider>
     </HeroUIProvider>
+    <Analytics />
   </StrictMode>,
 )
