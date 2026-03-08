@@ -118,7 +118,7 @@ export const Logo = () => {
     <Link
       to="/jobs"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black">
-      <img src="../../../../../assets/onlyLogo.png"
+      <img src="/assets/onlyLogo.png"
         className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm"/>
       <motion.span
         initial={{ opacity: 0 }}
@@ -134,7 +134,7 @@ export const LogoIcon = () => {
     <Link
       to="#"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black">
-      <img src="../../../../../assets/onlyLogo.png"
+      <img src="/assets/onlyLogo.png"
         className="h-4 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm" />
     </Link>
   );

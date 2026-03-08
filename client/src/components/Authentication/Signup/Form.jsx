@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import { sileo } from "sileo";
 import CircularProgress from '@mui/material/CircularProgress';
-import onlyLogo from "../../../../assets/onlyLogo.png";
+import onlyLogo from "/assets/onlyLogo.png";
 
 const features = [
   "Track every application in one place",
@@ -212,7 +212,7 @@ export function SignupFormDemo() {
               <button
                 className="group/btn relative flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border border-neutral-200 bg-white text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 type="button"
-                onClick={() => { window.location.href = "/api/auth/google"; }}
+                onClick={() => { window.location.href = `${import.meta.env.VITE_API_URL || ""}/api/auth/google`; }}
               >
                 <IconBrandGoogle className="h-4 w-4 text-neutral-600" />
                 Continue with Google
@@ -221,7 +221,7 @@ export function SignupFormDemo() {
               <button
                 className="group/btn relative flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border border-neutral-200 bg-white text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 type="button"
-                onClick={() => { window.location.href = "/api/auth/github"; }}
+                onClick={() => { window.location.href = `${import.meta.env.VITE_API_URL || ""}/api/auth/github`; }}
               >
                 <IconBrandGithub className="h-4 w-4 text-neutral-600" />
                 Continue with GitHub

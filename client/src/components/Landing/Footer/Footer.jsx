@@ -1,4 +1,4 @@
-import onlyLogo from "../../../../assets/onlyLogo.png";
+import onlyLogo from "/assets/onlyLogo.png";
 import { TextHoverEffectDemo } from "./BrandHover";
 
 const socials = [

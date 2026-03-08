@@ -124,7 +124,7 @@ export const HeroSection = () => {
       }
     >
       <img
-        src="../../../../../assets/dashboard.png"
+        src="/assets/hero.png"
         alt="Stratus dashboard preview showing job application tracking"
         className="w-full h-full object-contain object-top rounded-lg"
       />

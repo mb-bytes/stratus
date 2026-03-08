@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "../../../libs/utils";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import onlyLogo from "../../../../assets/onlyLogo.png";
+import onlyLogo from "/assets/onlyLogo.png";
 import {
   IconBrandGithub,
   IconBrandGoogle,
@@ -231,7 +231,7 @@ function Login() {
               <button
                 className="group/btn relative flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border border-neutral-200 bg-white text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 type="button"
-                onClick={() => { window.location.href = "/api/auth/google"; }}
+                onClick={() => { window.location.href = `${import.meta.env.VITE_API_URL || ""}/api/auth/google`; }}
               >
                 <IconBrandGoogle className="h-4 w-4 text-neutral-600" />
                 Continue with Google
@@ -240,7 +240,7 @@ function Login() {
               <button
                 className="group/btn relative flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border border-neutral-200 bg-white text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 type="button"
-                onClick={() => { window.location.href = "/api/auth/github"; }}
+                onClick={() => { window.location.href = `${import.meta.env.VITE_API_URL || ""}/api/auth/github`; }}
               >
                 <IconBrandGithub className="h-4 w-4 text-neutral-600" />
                 Continue with GitHub
