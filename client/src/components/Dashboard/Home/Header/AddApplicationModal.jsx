@@ -16,7 +16,6 @@ export function AddApplicationModal({ onClose, onJobAdded }) {
   const firstInputRef = useRef(null);
   const dialogRef = useRef(null);
 
-  // Auto-focus first input on mount
   useEffect(() => {
     firstInputRef.current?.focus();
   }, []);
@@ -29,7 +28,6 @@ export function AddApplicationModal({ onClose, onJobAdded }) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
-  // Close on backdrop click
   const handleBackdropClick = useCallback((e) => {
     if (dialogRef.current && !dialogRef.current.contains(e.target)) {
       onClose();
@@ -47,7 +45,7 @@ export function AddApplicationModal({ onClose, onJobAdded }) {
 
     try {
       await api.post(API_URL, formData);
-      onJobAdded(); // Trigger refresh and close
+      onJobAdded(); 
       if(!error){
         sileo.success({
             title: "Application added successfully",

@@ -140,9 +140,9 @@ function Login() {
 
         <div className="relative z-10 w-full max-w-md px-6 py-12">
           <div className="lg:hidden mb-8">
-            <span className="text-black text-2xl font-semibold tracking-tight">
+            <Link to="/" className="text-black text-2xl font-semibold tracking-tight">
               Stratus
-            </span>
+            </Link>
           </div>
 
           <div className="shadow-[0_2px_40px_-4px_rgba(0,0,0,0.10)] bg-white rounded-2xl p-8">

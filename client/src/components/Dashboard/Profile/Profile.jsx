@@ -32,8 +32,8 @@ export function Profile() {
   const joinedDate = getJoinedDate();
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-zinc-50 dark:bg-neutral-800 p-8">
-      <div className="flex gap-12 w-full max-w-3xl items-center">
+    <div className="flex h-full w-full items-start md:items-center justify-center bg-zinc-50 dark:bg-neutral-800 p-4 md:p-8 overflow-y-auto">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full max-w-3xl items-center lg:items-start mt-4 md:mt-0">
 
         <CometCard className="shrink-0">
           <div

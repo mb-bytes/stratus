@@ -40,7 +40,7 @@ export function BentoGridSecondDemo() {
   const right = active !== null ? features[active] : defaultRight;
 
   return (
-    <section id="features" className="relative z-10 mt-24 md:mt-32 pb-24 px-6">
+    <section id="features" className="relative z-10 mt-12 md:mt-32 pb-12 md:pb-24 px-6">
       <div className="max-w-6xl mx-auto">
 
         {/* ── Heading ── */}

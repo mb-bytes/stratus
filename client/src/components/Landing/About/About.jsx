@@ -40,7 +40,7 @@ function About() {
     const right = active !== null ? values[active] : defaultRight;
 
     return (
-        <section id="about" className="relative z-10 py-24 px-6">
+        <section id="about" className="relative z-10 py-12 md:py-24 px-6">
             <div className="max-w-6xl mx-auto">
 
                 {/* heading */}

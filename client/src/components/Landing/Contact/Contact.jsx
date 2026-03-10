@@ -64,7 +64,7 @@ function Contact() {
     };
 
     return (
-        <section id="contact" className="relative z-10 py-24 px-6">
+        <section id="contact" className="relative z-10 py-12 md:py-24 px-6">
             <div className="max-w-6xl mx-auto">
 
                 <motion.div

@@ -57,6 +57,7 @@ export function SidebarDemo({ children }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setOpen(false);
     const id = sileo.warning({
       title: "Sign out",
       description: "Are you sure you want to sign out?",
