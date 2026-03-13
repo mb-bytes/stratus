@@ -43,12 +43,14 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('user', JSON.stringify(user));
         } else {
             localStorage.removeItem('user');
+            localStorage.removeItem('token');
         }
     };
 
     const login = async (username, password) => {
         try {
             const { data } = await api.post('/api/auth/login', { username, password });
+            localStorage.setItem('token', data.token);
             updateUser(data.user);
             return { success: true };
         } catch (error) {
@@ -59,6 +61,7 @@ export const AuthProvider = ({ children }) => {
     const signup = async (name, username, email, password) => {
         try {
             const { data } = await api.post('/api/auth/signup', { name, username, email, password });
+            localStorage.setItem('token', data.token);
             updateUser(data.user);
             return { success: true };
         } catch (error) {

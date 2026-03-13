@@ -10,8 +10,6 @@ const cors = require("cors");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const session = require("express-session");
-const MongoStore = require("connect-mongo").default;
 const User = require("./models/users.js");
 const userRoutes = require("./routes/user.js");
 const jobRoutes = require("./routes/dashboard.js");
@@ -34,49 +32,36 @@ if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
 }
 
-const store = MongoStore.create({
-  mongoUrl: dbUrl,
-  crypto: {
-    secret: process.env.SECRET,
-  },
-  touchAfter: 24 * 3600,
-});
-
-const sessionOptions = {
-  store: store,
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-  },
-};
-app.use(session(sessionOptions));
-store.on("error", (err) => {
-  console.log("Error in Mongo Session Store: ", err);
-});
-
 const passport = require("./config/passport.js");
 app.use(passport.initialize());
-app.use(passport.session());
 
-// Auth status endpoint
-app.get("/api/auth/me", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({
-      user: {
-        id: req.user._id,
-        name: req.user.name,
-        username: req.user.username,
-        email: req.user.email,
-        isGoogleUser: !!(req.user.googleId && !req.user.hash),
-      },
-    });
-  } else {
-    res.status(401).json({ user: null });
+const jwt = require("jsonwebtoken");
+
+app.get("/api/auth/me", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(200).json({ user: null });
+    }
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.SECRET);
+    const user = await User.findById(decoded.id);
+
+    if (user) {
+      res.json({
+        user: {
+          id: user._id,
+          name: user.name,
+          username: user.username,
+          email: user.email,
+          createdAt: user.createdAt,
+        },
+      });
+    } else {
+      res.status(200).json({ user: null });
+    }
+  } catch (err) {
+    res.status(200).json({ user: null });
   }
 });
 
@@ -85,7 +70,6 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/message", msgRoutes);
 
-// JSON error handler
 app.use((err, req, res, next) => {
   let { status = 500, message = "An error occurred" } = err;
   console.error(err);

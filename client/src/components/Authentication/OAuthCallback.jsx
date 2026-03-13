@@ -8,6 +8,12 @@ export default function OAuthCallback() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        if (token) {
+            localStorage.setItem('token', token);
+        }
+
         api.get('/api/auth/me')
             .then(({ data }) => {
                 if (data.user) {

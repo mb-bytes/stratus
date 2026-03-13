@@ -1,5 +1,6 @@
 const User = require("../models/users.js");
 const { signupSchema, loginSchema } = require("../schemaValid.js");
+const jwt = require("jsonwebtoken");
 const authenticate = User.authenticate();
 
 module.exports.validateSignup = (req, res, next) => {
@@ -21,8 +22,15 @@ module.exports.validateLogin = (req, res, next) => {
 };
 
 module.exports.postLogin = async (req, res) => {
+  const token = jwt.sign(
+    { id: req.user._id, username: req.user.username },
+    process.env.SECRET,
+    { expiresIn: "7d" },
+  );
+
   res.json({
     message: "Login successful",
+    token,
     user: {
       id: req.user._id,
       name: req.user.name,
@@ -43,23 +51,22 @@ module.exports.postSignUp = async (req, res) => {
     });
     const saveUser = await User.register(newUser, password);
 
-    req.login(saveUser, (err) => {
-      if (err) {
-        console.log(err);
-        return res
-          .status(500)
-          .json({ error: "Login failed after signup. Please try logging in." });
-      }
-      res.status(201).json({
-        message: "Signup successful",
-        user: {
-          id: saveUser._id,
-          name: saveUser.name,
-          username: saveUser.username,
-          email: saveUser.email,
-          createdAt: saveUser.createdAt,
-        },
-      });
+    const token = jwt.sign(
+      { id: saveUser._id, username: saveUser.username },
+      process.env.SECRET,
+      { expiresIn: "7d" },
+    );
+
+    res.status(201).json({
+      message: "Signup successful",
+      token,
+      user: {
+        id: saveUser._id,
+        name: saveUser.name,
+        username: saveUser.username,
+        email: saveUser.email,
+        createdAt: saveUser.createdAt,
+      },
     });
   } catch (err) {
     console.log(err);
@@ -68,13 +75,7 @@ module.exports.postSignUp = async (req, res) => {
 };
 
 module.exports.logout = (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ error: "Logout failed" });
-    }
-    res.json({ message: "Logged out successfully" });
-  });
+  res.json({ message: "Logged out successfully" });
 };
 
 module.exports.deleteAccount = async (req, res) => {
@@ -91,12 +92,14 @@ module.exports.deleteAccount = async (req, res) => {
 
     await User.findByIdAndDelete(req.user._id);
 
-    req.logout((err) => {
-      if (err) console.log("Logout error:", err);
-      res.json({ message: "Your account has been deleted successfully. We're sorry to see you go!" });
+    res.json({
+      message:
+        "Your account has been deleted successfully. We're sorry to see you go!",
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Failed to delete account. Please try again." });
+    res
+      .status(500)
+      .json({ error: "Failed to delete account. Please try again." });
   }
 };

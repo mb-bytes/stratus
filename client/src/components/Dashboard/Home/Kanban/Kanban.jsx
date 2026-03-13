@@ -4,6 +4,7 @@ import KanbanColumn from "./KanbanColumn";
 import api from "../../../../libs/axiosInstance";
 import { sileo } from "sileo";
 import { IconSearch, IconNote } from '@tabler/icons-react';
+import { LoaderTwoDemo } from "../../../Loaders/Loader.jsx";
 
 const API_URL = "/api/jobs";
 
@@ -157,29 +158,8 @@ function KanbanBoard({ refreshTrigger = 0 }) {
 
   if (loading) {
     return (
-      <div className="w-full">
-        <div className="mb-6 space-y-2">
-          <div className="h-7 w-52 bg-zinc-200 dark:bg-zinc-700 rounded-lg animate-pulse" />
-          <div className="h-4 w-72 bg-zinc-100 dark:bg-zinc-800 rounded-md animate-pulse" />
-        </div>
-        <div className="flex gap-4 overflow-x-auto pb-6 w-full items-start">
-          {COLUMNS.map((col) => (
-            <div
-              key={col.status}
-              className="flex-1 min-w-[300px] rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden"
-            >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-200 dark:border-zinc-800">
-                <div className="size-2 rounded-full bg-zinc-200 dark:bg-zinc-700 animate-pulse" />
-                <div className="h-3 w-20 bg-zinc-200 dark:bg-zinc-700 rounded animate-pulse" />
-              </div>
-              <div className="p-3 space-y-3">
-                {[0, 1, 2].map((j) => (
-                  <div key={j} className="h-[88px] rounded-xl bg-zinc-100 dark:bg-zinc-800 animate-pulse" />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="w-full flex items-center justify-center h-full min-h-[500px]">
+        <LoaderTwoDemo />
       </div>
     );
   }

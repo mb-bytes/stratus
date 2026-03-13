@@ -12,6 +12,7 @@ import Analytics from './components/Dashboard/Analytics/Analytics';
 import {Profile} from './components/Dashboard/Profile/Profile';
 import Notes from './components/Dashboard/Notes/Notes';
 import OAuthCallback from './components/Authentication/OAuthCallback';
+import NotFound from './components/Error/NotFound';
 import { useEffect, useState } from 'react';
 
 export const ProtectedRoute = ({ children }) => {
@@ -103,6 +104,10 @@ const ProjectRoutes = ()=>{
                     element: <Notes/>
                 }
             ]
+        },
+        {
+            path: "*",
+            element: <NotFound/>
         }
     ])
     return elements; 
