@@ -79,38 +79,40 @@ export function SidebarDemo({ children }) {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col md:flex-row overflow-hidden bg-gray-100 dark:bg-neutral-800">
-      <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
-            {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-8 flex flex-col gap-2">
-              {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
-              ))}
-              <SidebarLink link={logoutLink} onClick={handleLogout} />
+    <div className="h-screen w-full overflow-hidden bg-gray-100 dark:bg-neutral-800">
+      <div className="flex h-full w-full flex-col md:flex-row">
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
+            <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+              {open ? <Logo /> : <LogoIcon />}
+              <div className="mt-8 flex flex-col gap-2">
+                {links.map((link, idx) => (
+                  <SidebarLink key={idx} link={link} />
+                ))}
+                <SidebarLink link={logoutLink} onClick={handleLogout} />
+              </div>
             </div>
-          </div>
-          <div>
-            <SidebarLink
-              link={{
-                label: currentUser?.name || "User",
-                href: "#",
-                icon: (
-                  <img
-                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser?.name || "U")}&background=random`}
-                    className="h-7 w-7 shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar" />
-                ),
-              }} />
-          </div>
-        </SidebarBody>
-      </Sidebar>
-      <main className="flex flex-1 min-w-0 flex-col overflow-y-auto min-h-0">
-        {children}
-      </main>
+            <div>
+              <SidebarLink
+                link={{
+                  label: currentUser?.name || "User",
+                  href: "#",
+                  icon: (
+                    <img
+                      src={`https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser?.name || "U")}&background=random`}
+                      className="h-7 w-7 shrink-0 rounded-full"
+                      width={50}
+                      height={50}
+                      alt="Avatar" />
+                  ),
+                }} />
+            </div>
+          </SidebarBody>
+        </Sidebar>
+        <main className="flex flex-1 min-w-0 min-h-0 flex-col overflow-y-auto">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

@@ -205,7 +205,7 @@ export const MobileNavToggle = ({
     <button
       onClick={onClick}
       aria-label={isOpen ? "Close menu" : "Open menu"}
-      className="p-1 rounded-md text-black dark:text-white"
+      className="p-1 rounded-md text-black"
     >
       {isOpen ? <IconX /> : <IconMenu2 />}
     </button>
@@ -222,7 +222,7 @@ export const NavbarLogo = () => {
         alt="logo"
         width={50}
         height={40} />
-      <span className="ml-1 font-semibold text-black text-2xl tracking-tight dark:text-white">stratus</span>
+      <span className="ml-1 font-semibold text-black text-2xl tracking-tight">stratus</span>
     </a>
   );
 };

@@ -14,20 +14,20 @@ function Analytics() {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row min-h-dvh bg-[#f5f4f3]">
+    <div className="flex min-h-dvh flex-col bg-[#f5f4f3] xl:flex-row">
 
-      <div className="flex flex-1 items-center justify-center border-b md:border-b-0 md:border-r border-black/5 py-10 md:py-0">
+      <div className="flex min-w-0 flex-1 items-center justify-center border-b border-black/5 py-8 xl:border-r xl:border-b-0 xl:py-0">
         <AnimatedNumber_002
           finalCount={jobCount}
           className="!h-auto w-full"
         />
       </div>
 
-      <div className="flex flex-1 items-center justify-center p-10">
+      <div className="flex min-w-0 flex-1 items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
         <OfferRateChart />
       </div>
 
-      <div className="flex flex-1 items-center justify-center border-t md:border-t-0 md:border-l border-black/5 py-10 md:py-0">
+      <div className="flex min-w-0 flex-1 items-center justify-center border-t border-black/5 py-8 xl:border-l xl:border-t-0 xl:py-0">
         <Pattern />
       </div>
 

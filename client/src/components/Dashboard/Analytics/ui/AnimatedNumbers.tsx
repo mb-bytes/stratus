@@ -134,15 +134,15 @@ export const AnimatedNumber_002 = ({ finalCount = 0, className = "" }: { finalCo
   }, [finalCount, isInView]);
 
   return (
-    <div className={`relative flex h-screen w-full flex-col items-start justify-start bg-[#f5f4f3] text-black pt-10 pr-10 pb-10 pl-40 ${className}`}>
-      <div className="flex flex-col items-start">
-        <span className="relative max-w-[12ch] text-xs uppercase leading-tight opacity-40 after:absolute after:left-1/2 after:top-full after:h-8 after:w-px after:bg-gradient-to-b after:from-[#f5f4f3] after:to-black after:content-[''] mb-10">
+    <div className={`relative flex min-h-[260px] w-full flex-col items-center justify-center bg-[#f5f4f3] px-6 py-8 text-black sm:px-10 lg:px-12 xl:h-screen ${className}`}>
+      <div className="flex flex-col items-center text-center">
+        <span className="relative mb-6 max-w-[12ch] text-xs uppercase leading-tight opacity-40 after:absolute after:left-1/2 after:top-full after:h-8 after:w-px after:bg-gradient-to-b after:from-[#f5f4f3] after:to-black after:content-[''] xl:mb-10">
           Application tracked
         </span>
         <motion.div
           onViewportEnter={() => { setIsInView(true); springSubCount.set(finalCount); }}
           onViewportLeave={() => { setIsInView(false); springSubCount.set(0); }}
-          className="font-bebas-neue text-[10rem] tracking-tight leading-none"
+          className="font-bebas-neue text-[clamp(5rem,20vw,10rem)] tracking-tight leading-none"
         >
           {displaySubs}
         </motion.div>

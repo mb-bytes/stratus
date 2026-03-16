@@ -40,10 +40,10 @@ export const ContainerScroll = ({
   return (
     <div
       id="home"
-      className="h-[56rem] md:h-[72rem] lg:h-[88rem] flex items-start justify-center relative px-4 pt-20 md:px-20 md:pt-20"
+      className="relative flex h-[40rem] items-start justify-center px-4 pt-16 sm:h-[46rem] sm:pt-18 md:h-[64rem] md:px-10 md:pt-20 lg:h-[78rem] lg:px-20"
       ref={containerRef}>
       <div
-        className="py-4 md:py-16 w-full relative"
+        className="relative w-full py-2 md:py-16"
         style={{
           perspective: "1000px",
         }}>
@@ -84,8 +84,8 @@ export const Card = ({
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="max-w-5xl -mt-12 mx-auto h-120 md:h-160 w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px] shadow-2xl">
-      <div className="h-full w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-zinc-900">
+      className="mx-auto -mt-8 w-full max-w-[92vw] rounded-[26px] border-4 border-[#6C6C6C] bg-[#222222] p-2 shadow-2xl sm:max-w-[88vw] md:-mt-10 md:max-w-[82vw] md:rounded-[30px] md:p-4 lg:max-w-5xl lg:p-6">
+      <div className="aspect-[1919/911] h-full w-full overflow-hidden rounded-[20px] bg-zinc-950 md:rounded-2xl">
         {children}
       </div>
     </motion.div>
@@ -100,7 +100,7 @@ export const HeroSection = () => {
           <h2 className="text-3xl md:text-6xl font-medium text-black-700 mb-2 md:mb-2 tracking-tight">
             Take control of your
           </h2>
-          <h1 className="text-5xl sm:text-7xl md:text-[7rem] lg:text-[12rem] font-medium text-black mb-3 md:mb-3 tracking-tighter leading-[0.9] md:leading-[0.85] px-2 md:px-0">
+          <h1 className="text-5xl sm:text-6xl md:text-[6.2rem] lg:text-[10.5rem] font-medium text-black mb-3 md:mb-3 tracking-tighter leading-[0.9] md:leading-[0.85] px-2 md:px-0">
             Job Applications
           </h1>
           <p className="mt-10 text-base md:text-lg text-neutral-500 max-w-xl leading-relaxed">
@@ -126,7 +126,7 @@ export const HeroSection = () => {
       <img
         src="/assets/dashboard.png"
         alt="Stratus dashboard preview showing job application tracking"
-        className="w-full h-full object-contain object-top rounded-lg"
+        className="h-full w-full rounded-lg object-cover object-top"
       />
     </ContainerScroll>
   );
